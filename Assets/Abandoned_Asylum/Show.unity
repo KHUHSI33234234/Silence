@@ -283,10 +283,8 @@ MonoBehaviour:
   player: {fileID: 705755107}
   attackRange: 2.5
   attackKey: 323
-  damagePerHit: 20
-  enemyRenderer: {fileID: 60762696}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.15
+  damagePerHit: 80
+  playerAnimator: {fileID: 705755114}
 --- !u!114 &60762700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,10 +1072,8 @@ MonoBehaviour:
   player: {fileID: 705755107}
   attackRange: 2.5
   attackKey: 323
-  damagePerHit: 20
-  enemyRenderer: {fileID: 598135476}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.15
+  damagePerHit: 80
+  playerAnimator: {fileID: 705755114}
 --- !u!136 &598135475
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1310,6 +1306,11 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBarUI: {fileID: 501008915}
+--- !u!95 &705755114 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6982812146204527121, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+  m_PrefabInstance: {fileID: 332537824}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &724220339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2246,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1a24ddafe1249b443ae9a677e310620e, type: 2}
+  - {fileID: 2100000, guid: 9191aba9104f16448b9ebdd0163eb7d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2615,7 +2616,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1a24ddafe1249b443ae9a677e310620e, type: 2}
+  - {fileID: 2100000, guid: 9191aba9104f16448b9ebdd0163eb7d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3094,7 +3095,7 @@ PrefabInstance:
     - target: {fileID: 8591689653958676878, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1a24ddafe1249b443ae9a677e310620e, type: 2}
+      objectReference: {fileID: 2100000, guid: 9191aba9104f16448b9ebdd0163eb7d3, type: 2}
     - target: {fileID: 8601886773751821610, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
       propertyPath: m_RootOrder
       value: 0
