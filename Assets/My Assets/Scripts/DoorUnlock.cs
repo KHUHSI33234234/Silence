@@ -1,31 +1,50 @@
+
 using UnityEngine;
 
 public class DoorUnlock : MonoBehaviour
 {
     public static DoorUnlock Instance;
 
-    public int itemsRequired = 1;
+    public int itemsRequired = 2;
     private int itemsCollected = 0;
+    private bool puzzleCompleted = false;
+
+    public DoorController firstDoor;
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     public void CollectItem()
     {
+        if (puzzleCompleted) return;
+
         itemsCollected++;
-        Debug.Log("Progress: " + itemsCollected + " / " + itemsRequired);
+
+        Debug.Log("Items collected: " +
+            itemsCollected + " / " + itemsRequired);
 
         if (itemsCollected >= itemsRequired)
-            OpenDoor();
-    }
+        {
+            puzzleCompleted = true;
 
-    void OpenDoor()
-    {
-        gameObject.SetActive(false); // door vanishes, path opens
+            Debug.Log("First puzzle completed!");
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.EndGame(true); // solving the puzzle = escape ending, "you did it"
+            if (firstDoor != null)
+            {
+                firstDoor.OpenDoor(() =>
+                {
+                    GameManager.Instance.CompletePuzzle(1);
+                });
+            }
+            else
+            {
+                Debug.LogError("First door is not assigned!");
+            }
+        }
     }
 }
