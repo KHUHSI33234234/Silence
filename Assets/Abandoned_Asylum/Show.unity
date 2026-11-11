@@ -9532,8 +9532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c8ff956d97cfc41a16f435b74a2b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 0}
-  soundVolume: 1
+  pickupSound: {fileID: 8300000, guid: 77ec26481e466474cafae69ae1cd1b34, type: 3}
+  soundVolume: 5
 --- !u!1 &1353154120
 GameObject:
   m_ObjectHideFlags: 0
@@ -10950,7 +10950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: 77ec26481e466474cafae69ae1cd1b34, type: 3}
-  soundVolume: 3
+  soundVolume: 5
 --- !u!1 &1600925518
 GameObject:
   m_ObjectHideFlags: 0
