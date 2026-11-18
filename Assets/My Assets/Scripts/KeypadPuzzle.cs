@@ -4,9 +4,11 @@ using TMPro;
 
 public class KeypadPuzzle : MonoBehaviour
 {
+    [Header("Keypad Settings")]
     public string correctCode = "4826";
     public GameObject keypadPanel;
     public TMP_Text codeDisplay;
+    public GameObject interactionPrompt;
     public DoorController secondDoor;
 
     private string enteredCode = "";
@@ -16,25 +18,27 @@ public class KeypadPuzzle : MonoBehaviour
     void Start()
     {
         keypadPanel.SetActive(false);
+        interactionPrompt.SetActive(false);
     }
 
     void Update()
     {
         if (playerNearby && !unlocked && Input.GetKeyDown(KeyCode.E))
         {
-            keypadPanel.SetActive(true);
-            enteredCode = "";
-            UpdateDisplay();
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            interactionPrompt.SetActive(false);
+            OpenKeypad();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             playerNearby = true;
+
+            if (!unlocked)
+                interactionPrompt.SetActive(true);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -42,16 +46,28 @@ public class KeypadPuzzle : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNearby = false;
-            keypadPanel.SetActive(false);
+            interactionPrompt.SetActive(false);
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (keypadPanel.activeSelf)
+                CloseKeypad();
         }
+    }
+
+    public void OpenKeypad()
+    {
+        if (unlocked) return;
+
+        keypadPanel.SetActive(true);
+        enteredCode = "";
+        UpdateDisplay();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void AddDigit(string digit)
     {
-        if (enteredCode.Length >= 4 || unlocked) return;
+        if (unlocked || enteredCode.Length >= 4) return;
 
         enteredCode += digit;
         UpdateDisplay();
@@ -68,32 +84,49 @@ public class KeypadPuzzle : MonoBehaviour
         codeDisplay.text = enteredCode;
     }
 
-    public void CloseKeypad()
-    {
-        keypadPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     public void SubmitCode()
     {
+        if (unlocked) return;
+
         if (enteredCode == correctCode)
         {
             unlocked = true;
+            Debug.Log("Correct code! Second puzzle completed.");
+
             keypadPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            secondDoor.OpenDoor(() =>
+            if (secondDoor != null)
             {
-                GameManager.Instance.CompletePuzzle(2);
-            });
+                secondDoor.OpenDoor(() =>
+                {
+                    if (GameManager.Instance != null)
+                        GameManager.Instance.CompletePuzzle(2);
+                });
+            }
+            else
+            {
+                Debug.LogError("Second Door has not been assigned!");
+            }
         }
         else
         {
+            Debug.Log("Incorrect code!");
             codeDisplay.text = "INCORRECT";
             enteredCode = "";
         }
+    }
+
+    public void CloseKeypad()
+    {
+        keypadPanel.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        if (playerNearby && !unlocked)
+            interactionPrompt.SetActive(true);
     }
 }
