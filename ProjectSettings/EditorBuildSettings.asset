@@ -5,7 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Abandoned_Asylum/Show.unity
     guid: 30fb6719a9eb1d84a807a42d598b16f8
+  - enabled: 1
+    path: Assets/My Assets/Scenes/SilenceAsylumLevel.unity
+    guid: 8a14fdf0d2a48d648a8d081d1ff2abcf
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
